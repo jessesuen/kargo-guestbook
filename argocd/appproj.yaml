@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: AppProject
 metadata:
-  name: guestbook
+  name: kargo-guestbook
   namespace: argocd
 spec:
   clusterResourceWhitelist:
@@ -9,7 +9,7 @@ spec:
     kind: Namespace
   destinations:
   - name: '*'
-    namespace: guestbook-*
+    namespace: kargo-guestbook
     server: '*'
   namespaceResourceWhitelist:
   - group: '*'

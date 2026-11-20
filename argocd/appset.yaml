@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
-  name: guestbook
+  name: kargo-guestbook
   namespace: argocd
 spec:
   generators:
@@ -12,17 +12,22 @@ spec:
       - path: env/*
   template:
     metadata:
-      name: guestbook-{{path.basename}}
+      name: kargo-guestbook-{{path.basename}}
       annotations:
         kargo.akuity.io/authorized-stage: kargo-guestbook:{{path.basename}}
     spec:
       destination:
-        namespace: guestbook-{{path.basename}}
+        namespace: kargo-guestbook
         # Specify either a cluster destination name or server address:
         name: demo
         # server: https://REPLACEME
-      project: guestbook
+      project: kargo-guestbook
       source:
         path: ./
         repoURL: https://github.com/jessesuen/kargo-guestbook.git
         targetRevision: env/{{path.basename}}
+      syncPolicy:
+        syncOptions:
+        # All Apps share one namespace, so Argo CD creates it instead of any
+        # single App owning the Namespace resource.
+        - CreateNamespace=true

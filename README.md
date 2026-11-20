@@ -8,16 +8,16 @@ multiple Stages.
 ## Features
 
 * A Warehouse which monitors both a container repository for new images and manifest changes in Git
-* Stage deploy pipeline with A/B testing
+* Multi-stage deploy pipeline (`dev` → `staging` → `prod-west`/`prod-central`/`prod-east`)
 * Promotion of Git changes and image tags
+* A reusable `PromotionTask` shared by every Stage's promotion template
 * Verification with analysis of an HTTP REST endpoint
 * Argo CD Application syncing
-* Control flow Stage to coordinate promotion to multiple Stages
 * Rendered branches
 
 ## Requirements
 
-* Kargo v0.9.x (for older Kargo versions, switch to the release-X.Y branch)
+* Kargo v1.12 or later (for older Kargo versions, switch to the release-X.Y branch)
 * An Argo CD instance
 * GitHub and a container registry (GHCR.io)
 * `git` and `docker` installed
@@ -90,10 +90,11 @@ multiple Stages.
     with your username).
 
     ```shell
-    kargo create credentials github-creds \
+    kargo create repo-credentials github-creds \
       --project kargo-guestbook \
       --git \
       --username <yourgithubusername> \
+      --password <yourgithubtoken> \
       --repo-url https://github.com/<yourgithubusername>/kargo-guestbook.git
     ```
 
@@ -110,7 +111,7 @@ multiple Stages.
 
     To promote, click the target icon to the left of the `dev` Stage, select the
     detected Freight, and click `Yes` to promote. Once promoted, the freight will
-    be qualified to be promoted to downstream Stages (`staging`, `prod`).
+    be qualified to be promoted to downstream Stages (`staging`, then `prod-west`, `prod-central`, and `prod-east`).
 
 ## Simulating a release
 

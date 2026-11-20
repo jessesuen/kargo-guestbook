@@ -4,4 +4,10 @@ kind: Kustomization
 resources:
 - ../../base
 
-namespace: guestbook-prod-west
+# All environments deploy to the same namespace, so suffix resource names and
+# add an env label (including selectors) to keep them from colliding.
+nameSuffix: -prod-west
+labels:
+- pairs:
+    env: prod-west
+  includeSelectors: true
