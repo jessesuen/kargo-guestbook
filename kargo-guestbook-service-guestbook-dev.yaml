@@ -1,8 +1,10 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: guestbook
-  namespace: guestbook-dev
+  labels:
+    env: dev
+  name: guestbook-dev
+  namespace: kargo-guestbook
 spec:
   ports:
   - name: http
@@ -10,3 +12,4 @@ spec:
     targetPort: http
   selector:
     app: guestbook
+    env: dev
