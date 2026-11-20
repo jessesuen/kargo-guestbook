@@ -22,3 +22,7 @@ spec:
         env:
         - name: GREETING
           value: Hello from Kargo
+        resources:
+          requests:
+            cpu: 10m
+            memory: 32Mi
