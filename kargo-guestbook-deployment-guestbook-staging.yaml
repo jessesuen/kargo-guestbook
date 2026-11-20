@@ -1,21 +1,25 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: guestbook
-  namespace: guestbook-staging
+  labels:
+    env: staging
+  name: guestbook-staging
+  namespace: kargo-guestbook
 spec:
   replicas: 1
   revisionHistoryLimit: 3
   selector:
     matchLabels:
       app: guestbook
+      env: staging
   template:
     metadata:
       labels:
         app: guestbook
+        env: staging
     spec:
       containers:
-      - image: ghcr.io/jessesuen/guestbook:v0.0.86
+      - image: ghcr.io/jessesuen/guestbook:v0.0.89
         name: guestbook
         ports:
         - containerPort: 3000
