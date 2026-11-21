@@ -19,7 +19,7 @@ spec:
         env: staging
     spec:
       containers:
-      - image: ghcr.io/jessesuen/guestbook:v0.0.89
+      - image: ghcr.io/jessesuen/guestbook:v0.0.82
         name: guestbook
         ports:
         - containerPort: 3000
