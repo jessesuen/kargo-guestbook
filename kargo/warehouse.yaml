@@ -13,3 +13,8 @@ spec:
   - git:
       repoURL: https://github.com/jessesuen/kargo-guestbook.git
       branch: main
+      # Only produce new Freight for changes to the manifests that are rendered
+      # during promotion (not Kargo/Argo CD config, docs, or scripts).
+      includePaths:
+      - base
+      - env
