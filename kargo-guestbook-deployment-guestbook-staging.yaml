@@ -22,8 +22,12 @@ spec:
       - env:
         - name: GREETING
           value: Hello from Kargo
-        image: ghcr.io/jessesuen/guestbook:v0.0.85
+        image: ghcr.io/jessesuen/guestbook:v0.0.86
         name: guestbook
         ports:
         - containerPort: 3000
           name: http
+        resources:
+          requests:
+            cpu: 10m
+            memory: 32Mi
