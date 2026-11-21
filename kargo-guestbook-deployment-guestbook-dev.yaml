@@ -6,7 +6,7 @@ metadata:
   name: guestbook-dev
   namespace: kargo-guestbook
 spec:
-  replicas: 1
+  replicas: 2
   revisionHistoryLimit: 3
   selector:
     matchLabels:
@@ -19,8 +19,15 @@ spec:
         env: dev
     spec:
       containers:
-      - image: ghcr.io/jessesuen/guestbook:v0.0.84
+      - env:
+        - name: GREETING
+          value: Hello from Kargo
+        image: ghcr.io/jessesuen/guestbook:v0.0.89
         name: guestbook
         ports:
         - containerPort: 3000
           name: http
+        resources:
+          requests:
+            cpu: 10m
+            memory: 32Mi
