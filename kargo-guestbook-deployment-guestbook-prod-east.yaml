@@ -1,21 +1,25 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: guestbook
-  namespace: guestbook-prod-east
+  labels:
+    env: prod-east
+  name: guestbook-prod-east
+  namespace: kargo-guestbook
 spec:
   replicas: 1
   revisionHistoryLimit: 3
   selector:
     matchLabels:
       app: guestbook
+      env: prod-east
   template:
     metadata:
       labels:
         app: guestbook
+        env: prod-east
     spec:
       containers:
-      - image: ghcr.io/jessesuen/guestbook:v0.0.77
+      - image: ghcr.io/jessesuen/guestbook:v0.0.82
         name: guestbook
         ports:
         - containerPort: 3000
